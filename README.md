@@ -33,38 +33,31 @@ Replicator is a Multi-Agent System modeled on the workflows of a human software 
      2. **Publish**: Deploys the application to the IPFS decentralized network via `pinme`.
    - **Output**: Accessible public URL.
 
+## ⚡️ Quick Start
 
-## 快速开始
-
-### 1. 安装
+### 1. Setup
 ```bash
-# 安装 Python 依赖
+# Install Python dependencies
 pip install -r requirements.txt
 
-# 安装部署工具 (可选，仅当需要自动部署时)
+# Install deployment tool (Optional, for IPFS deployment)
 npm install -g pinme
-```
 
-### 2. 配置
-设置 Google Gemini API Key：
-```bash
-export GOOGLE_API_KEY=your_key_here
-```
+# Configure API Key
+export GOOGLE_API_KEY=your_api_key_here
 
-### 3. 运行
-```bash
-# 示例：生成一个房贷计算器
-python -m replicator.main "做一个房贷计算器，支持等额本息和等额本金"
-```
+### 2. Usage
 
-### 4. 自动部署 (可选)
-如果你希望生成后直接部署到 IPFS，加上 `--deploy` 参数：
-```bash
-python -m replicator.main "做一个番茄钟" --deploy
-```
+Turn your prompt into a live app with a single command:
+code
+Bash
+# Generate source code only
+python -m replicator.main "Create a mortgage calculator with amortization schedule"
 
-## 项目结构
+# Generate & Deploy to IPFS
+python -m replicator.main "Create a Cyberpunk style Pomodoro timer" --deploy
 
-- `replicator/`: 核心 Python 源码 (Architect, Engineer, Operator, LLM Client)
-- `templates/`: 预置的 Next.js 项目模板
-- `output/`: 生成的项目产物目录
+📂 Project Structure
+replicator/: Core Source Code (Architect, Engineer, Operator, LLM Client).
+templates/: Pre-built Next.js project templates.
+output/: Directory for generated project artifacts.
