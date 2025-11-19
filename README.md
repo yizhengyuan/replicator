@@ -20,8 +20,19 @@ pip install -r requirements.txt
 # Install deployment tool (Optional, for IPFS deployment)
 npm install -g pinme
 
-# Configure API Key
-export GOOGLE_API_KEY=your_api_key_here
+# Configure Environment
+# For Google Gemini:
+export GOOGLE_API_KEY=your_google_key
+export LLM_PROVIDER=google
+
+# For OpenAI (or compatible APIs like DeepSeek/Moonshot):
+export OPENAI_API_KEY=sk-xxxx
+export LLM_PROVIDER=openai
+# Optional: export OPENAI_BASE_URL=https://api.deepseek.com/v1
+
+# For Anthropic (Claude):
+export ANTHROPIC_API_KEY=sk-ant-xxxx
+export LLM_PROVIDER=anthropic
 ```
 
 ### 2. Usage

@@ -13,21 +13,34 @@ load_dotenv()
 def main():
     parser = argparse.ArgumentParser(description="Replicator: AI Web App Factory")
     parser.add_argument("prompt", help="The description of the app you want to build")
-    parser.add_argument("--api-key", help="Google/OpenAI API Key", default=os.getenv("GOOGLE_API_KEY"))
+    
+    # LLM Configuration
+    parser.add_argument("--provider", help="LLM Provider (google/openai)", default=os.getenv("LLM_PROVIDER", "google"))
+    parser.add_argument("--api-key", help="API Key for the provider", default=None)
+    parser.add_argument("--base-url", help="Base URL for OpenAI-compatible APIs", default=os.getenv("OPENAI_BASE_URL"))
+    parser.add_argument("--model", help="Model name (e.g. gemini-1.5-flash, gpt-4o)", default=None)
+
     parser.add_argument("--template", help="Path to base template", default="templates/base-nextjs")
     parser.add_argument("--output", help="Path to output directory", default="output")
     parser.add_argument("--deploy", help="Deploy to IPFS after build", action="store_true")
     
     args = parser.parse_args()
     
-    if not args.api_key:
-        print("Error: API Key is required. Set GOOGLE_API_KEY env var or pass --api-key")
-        sys.exit(1)
-
     print(f"🚀 Replicator starting... Prompt: '{args.prompt}'")
+    print(f"   Provider: {args.provider}")
 
     # Initialize Agents
-    llm = LLMClient(api_key=args.api_key)
+    try:
+        llm = LLMClient(
+            provider=args.provider,
+            api_key=args.api_key,
+            base_url=args.base_url,
+            model=args.model
+        )
+    except ValueError as e:
+        print(f"Error initializing LLM: {e}")
+        sys.exit(1)
+
     architect = Architect(llm)
     engineer = Engineer(llm, template_dir=args.template, output_base_dir=args.output)
     operator = Operator()
