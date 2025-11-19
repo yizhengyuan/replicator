@@ -15,7 +15,7 @@ Replicator is a **Multi-Agent System** modeled after the workflows of a human so
 | Aspect   | Details                                                                 |
 |----------|-------------------------------------------------------------------------|
 | **Input**  | A brief description of requirements and ideas                           |
-| **Process**| 1. Requirement Analysis: Parses natural language instructions to extract core features and page logic<br>2. Blueprint Definition: Generates an `AppSpec` (defines application architecture and business logic) |
+| **Process**| 1. Requirement Analysis: Parses instructions to extract core features and page logic<br>2. Blueprint Definition: Generates an `AppSpec` to define application architecture and logic |
 | **Output** | `AppSpec` (structured development documentation)                        |
 
 
