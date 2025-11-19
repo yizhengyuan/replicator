@@ -1,4 +1,4 @@
-# Replicator
+## Replicator
 
 In Star Trek, a Replicator instantly reorganizes Energy into Matter, symbolizing the ultimate productivity of "creation from scratch, on demand."
 
@@ -6,7 +6,7 @@ In biology, a Replicator refers to self-replicating units (like genes or memes),
 
 Replicator aims to reduce the marginal cost of software development to near zero, making the process of creating apps as simple as ordering a hot tea on a Starship.
 
-# Core Architecture
+## Core Architecture
 
 Replicator is a Multi-Agent System modeled on the workflows of a human software development team:
 
@@ -31,9 +31,9 @@ Replicator is a Multi-Agent System modeled on the workflows of a human software 
      2. **Publish**: Deploys the application to the IPFS decentralized network via `pinme`.
    - **Output**: Accessible public URL.
 
-# Quick Start
+## Quick Start
 
-## 1. Setup
+### 1. Setup
 
 ```bash
 # Install Python dependencies
@@ -46,7 +46,7 @@ npm install -g pinme
 export GOOGLE_API_KEY=your_api_key_here
 ```
 
-## 2. Usage
+### 2. Usage
 
 Turn your prompt into a live app with a single command:
 
@@ -58,7 +58,7 @@ python -m replicator.main "Create a mortgage calculator with amortization schedu
 python -m replicator.main "Create a Cyberpunk style Pomodoro timer" --deploy
 ```
 
-# Project Structure
+## Project Structure
 
 - `replicator/`: Core Source Code (Architect, Engineer, Operator, LLM Client).
 - `templates/`: Pre-built Next.js project templates.
