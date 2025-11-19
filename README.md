@@ -2,7 +2,7 @@
 
 ## About the name "Replicator"
 
-<img width="623" height="460" alt="image" src="https://github.com/user-attachments/assets/6d8d22ad-1a9c-486e-a3a4-e4a35884adfa" />
+<img width="1183" height="445" alt="image" src="https://github.com/user-attachments/assets/41d83d6a-4c96-414e-8467-94a5531e060d" />
 
 ## Core Architecture
 Replicator is a **Multi-Agent System** modeled after the workflows of a human software development team:    
