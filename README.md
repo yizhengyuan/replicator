@@ -1,15 +1,14 @@
-# Replicator 🏭
+# Replicator
 
-**Replicator** 
 
 <img width="696" height="271" alt="image" src="https://github.com/user-attachments/assets/37bcabec-0bf3-422e-933a-acaacd07ec69" />
 
 
-本项目致力于将软件开发的边际成本降至近乎为零，让创造应用像在星舰上点一杯热茶一样简单。
+Replicator 致力于将软件开发的边际成本降至近乎为零，让创造应用的过程如同在星舰上点一杯热茶。
 
 ## 核心架构
 
-系统采用三代理（Three-Agent）模式，模拟软件开发团队的工作流：
+Replicator 采可扩展的 Multi-Agent 架构，模拟软件开发团队的工作流：
 
 1.  **Architect (架构)**
     *   **职责**：Design (架构)
