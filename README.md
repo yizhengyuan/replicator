@@ -9,30 +9,14 @@ In biology, a Replicator refers to self-replicating units (like genes or memes),
 Replicator aims to reduce the marginal cost of software development to near zero, making the process of creating apps as simple as ordering a hot tea on a Starship.
 
 ## Core Architecture
-Replicator is a **Multi-Agent System** modeled after the workflows of a human software development team:
+Replicator is a **Multi-Agent System** modeled after the workflows of a human software development team:    
 
-### 1. Architect
-| Aspect   | Details                                                                 |
-|----------|-------------------------------------------------------------------------|
-| **Input**  | A brief description of requirements and ideas                           |
-| **Process**| 1. Requirement Analysis: Parses instructions to extract core features and page logic<br>2. Blueprint Definition: Generates an `AppSpec` to define application architecture and logic |
-| **Output** | `AppSpec` (structured development documentation)                        |
-
-
-### 2. Engineer
-| Aspect   | Details                                                                 |
-|----------|-------------------------------------------------------------------------|
-| **Input**  | The `AppSpec` document                                                  |
-| **Process**| 1. Code Generation: Develops all pages and components in parallel based on the blueprint<br>2. Project Assembly: Injects code into the file system using the `base-nextjs` template |
-| **Output** | Complete, executable project source code                                |
-
-
-### 3. Operator
-| Aspect   | Details                                                                 |
-|----------|-------------------------------------------------------------------------|
-| **Input**  | Path to the project source code                                         |
-| **Process**| 1. Build: Executes `npm run build` to generate static files<br>2. Publish: Deploys the application to the IPFS decentralized network via `pinme` |
-| **Output** | A publicly accessible URL                                               |
+1. Architect
+Input: Requirements | Output: AppSpec
+2. Engineer
+Input: AppSpec | Output: Source Code
+3. Operator
+Input: Source Code | Output: URL
 
 ## Quick Start
 
