@@ -17,16 +17,16 @@
         *   **写代码**：根据规格书，编写 React 组件和逻辑。
         *   **组装**：利用底层工具（原 Builder），将代码写入文件系统，生成最终的项目文件夹。
 
-*(未来扩展角色)*
 3.  **Operator (运维)**
     *   **职责**：**交付 (Deliver)**
-    *   **任务**：负责将生成的项目部署到云端 (Vercel)，并监控运行状态。
+    *   **任务**：负责将生成的项目构建为静态站点，并使用 `pinme` 部署到去中心化网络 (IPFS)。
 
 ## 快速开始 (Quick Start)
 
 ### 1. 安装
 ```bash
 pip install -r requirements.txt
+npm install -g pinme
 ```
 
 ### 2. 配置
@@ -35,13 +35,13 @@ pip install -r requirements.txt
 export GOOGLE_API_KEY=your_key_here
 ```
 
-### 3. 生产
+### 3. 生产 & 部署
 ```bash
-# 生产一个番茄钟
-python replicator/main.py "A pomodoro timer with red theme"
+# 生产一个番茄钟并自动部署
+python replicator/main.py "A pomodoro timer with red theme" --deploy
 ```
 
-### 4. 运行
+### 4. 运行 (本地)
 ```bash
 cd output/pomodoro-timer
 npm install

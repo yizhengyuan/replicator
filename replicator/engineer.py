@@ -1,3 +1,5 @@
+import shutil
+from pathlib import Path
 from .llm import LLMClient
 from .schema import AppSpec, FileSpec
 from pydantic import BaseModel, Field
@@ -20,12 +22,21 @@ Rules:
 """
 
 class Engineer:
-    def __init__(self, llm: LLMClient):
+    def __init__(self, llm: LLMClient, template_dir: str, output_base_dir: str):
         self.llm = llm
+        self.template_dir = Path(template_dir)
+        self.output_base_dir = Path(output_base_dir)
 
-    def build(self, spec: AppSpec) -> AppSpec:
+    def build(self, spec: AppSpec) -> str:
         print(f"Engineer: Building app '{spec.name}'...")
         
+        # 1. Generate Code
+        self._generate_code(spec)
+        
+        # 2. Assemble Project
+        return self._assemble_project(spec)
+
+    def _generate_code(self, spec: AppSpec):
         # Generate pages
         for page in spec.pages:
             print(f"  - Generating page: {page.path}")
@@ -35,8 +46,36 @@ class Engineer:
         for component in spec.components:
             print(f"  - Generating component: {component.path}")
             component.code = self._generate_file_content(component, spec)
+
+    def _assemble_project(self, spec: AppSpec) -> str:
+        print(f"Engineer: Assembling '{spec.name}'...")
+        
+        # 1. Create output directory
+        app_dir = self.output_base_dir / spec.name
+        if app_dir.exists():
+            shutil.rmtree(app_dir)
+        
+        # 2. Copy template
+        print(f"  - Copying template from {self.template_dir} to {app_dir}")
+        shutil.copytree(self.template_dir, app_dir)
+        
+        # 3. Write generated files
+        for file_spec in spec.pages + spec.components:
+            if not file_spec.code:
+                print(f"  - Warning: No code generated for {file_spec.path}")
+                continue
+                
+            file_path = app_dir / file_spec.path
+            print(f"  - Writing {file_spec.path}")
             
-        return spec
+            # Ensure parent directory exists
+            file_path.parent.mkdir(parents=True, exist_ok=True)
+            
+            with open(file_path, "w") as f:
+                f.write(file_spec.code)
+                
+        print(f"Engineer: App '{spec.name}' ready at {app_dir}")
+        return str(app_dir)
 
     def _generate_file_content(self, file_spec: FileSpec, app_spec: AppSpec) -> str:
         prompt = f"""
