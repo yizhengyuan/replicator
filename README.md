@@ -1,6 +1,6 @@
 # Replicator
 
-The Meaning of Replicator:
+## The Meaning of Replicator
 
 In Star Trek, a Replicator instantly reorganizes Energy into Matter, symbolizing the ultimate productivity of "creation from scratch, on demand."
 
@@ -36,6 +36,7 @@ Replicator is a Multi-Agent System modeled on the workflows of a human software 
 ## ⚡️ Quick Start
 
 ### 1. Setup
+
 ```bash
 # Install Python dependencies
 pip install -r requirements.txt
@@ -45,19 +46,22 @@ npm install -g pinme
 
 # Configure API Key
 export GOOGLE_API_KEY=your_api_key_here
+```
 
 ### 2. Usage
 
 Turn your prompt into a live app with a single command:
-code
-Bash
+
+```bash
 # Generate source code only
 python -m replicator.main "Create a mortgage calculator with amortization schedule"
 
 # Generate & Deploy to IPFS
 python -m replicator.main "Create a Cyberpunk style Pomodoro timer" --deploy
+```
 
-📂 Project Structure
-replicator/: Core Source Code (Architect, Engineer, Operator, LLM Client).
-templates/: Pre-built Next.js project templates.
-output/: Directory for generated project artifacts.
+### 📂 Project Structure
+
+- `replicator/`: Core Source Code (Architect, Engineer, Operator, LLM Client).
+- `templates/`: Pre-built Next.js project templates.
+- `output/`: Directory for generated project artifacts.
