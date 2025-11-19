@@ -1,4 +1,6 @@
-## Replicator
+# Replicator
+
+## About the name "Replicator"
 
 In Star Trek, a Replicator instantly reorganizes Energy into Matter, symbolizing the ultimate productivity of "creation from scratch, on demand."
 
