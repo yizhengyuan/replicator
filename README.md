@@ -20,8 +20,8 @@ Replicator is a Multi-Agent System modeled on the workflows of a human software 
 2. **Engineer**
    - **Input**: `AppSpec`
    - **Process**:
-     1. **Code Generation**: Generates source code for all pages and components in parallel based on the blueprint.
-     2. **Project Assembly**: Injects the generated code into the file system based on the `base-nextjs` template.
+     1. **Code Generation**: Develop all pages and components in parallel based on the blueprint.
+     2. **Project Assembly**: Injects code into the file system based on the `base-nextjs` template.
    - **Output**: Complete, executable project source code.
 
 3. **Operator**
