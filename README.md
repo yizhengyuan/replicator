@@ -1,5 +1,3 @@
-# Replicator
-
 ## The Meaning of Replicator
 
 In Star Trek, a Replicator instantly reorganizes Energy into Matter, symbolizing the ultimate productivity of "creation from scratch, on demand."
@@ -33,7 +31,7 @@ Replicator is a Multi-Agent System modeled on the workflows of a human software 
      2. **Publish**: Deploys the application to the IPFS decentralized network via `pinme`.
    - **Output**: Accessible public URL.
 
-## ⚡️ Quick Start
+## Quick Start
 
 ### 1. Setup
 
@@ -60,7 +58,7 @@ python -m replicator.main "Create a mortgage calculator with amortization schedu
 python -m replicator.main "Create a Cyberpunk style Pomodoro timer" --deploy
 ```
 
-### 📂 Project Structure
+## Project Structure
 
 - `replicator/`: Core Source Code (Architect, Engineer, Operator, LLM Client).
 - `templates/`: Pre-built Next.js project templates.
