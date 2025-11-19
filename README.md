@@ -7,17 +7,7 @@
 ## Core Architecture
 Replicator is a **Multi-Agent System** modeled on the workflows of a human software development team:    
 
-**1. Architect**
-
-Input: Requirements | Output: AppSpec
-
-**2. Engineer**
-
-Input: AppSpec | Output: Source Code
-
-**3. Operator**
-
-Input: Source Code | Output: URL
+<img width="1291" height="312" alt="截屏2025-11-20 03 42 41" src="https://github.com/user-attachments/assets/da292b4d-3f11-4aea-ac0f-978a30553456" />
 
 ## Quick Start
 
