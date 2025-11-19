@@ -2,11 +2,7 @@
 
 ## About the name "Replicator"
 
-In Star Trek, a Replicator instantly reorganizes Energy into Matter, symbolizing the ultimate productivity of "creation from scratch, on demand."
-
-In biology, a Replicator refers to self-replicating units (like genes or memes), representing the infinite propagation and reuse of Information and Intelligence.
-
-Replicator aims to reduce the marginal cost of software development to near zero, making the process of creating apps as simple as ordering a hot tea on a Starship.
+<img width="623" height="460" alt="image" src="https://github.com/user-attachments/assets/6d8d22ad-1a9c-486e-a3a4-e4a35884adfa" />
 
 ## Core Architecture
 Replicator is a **Multi-Agent System** modeled after the workflows of a human software development team:    
