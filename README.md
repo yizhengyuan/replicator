@@ -5,7 +5,7 @@
 <img width="1183" height="445" alt="image" src="https://github.com/user-attachments/assets/41d83d6a-4c96-414e-8467-94a5531e060d" />
 
 ## Core Architecture
-Replicator is a **Multi-Agent System** modeled after the workflows of a human software development team:    
+Replicator is a **Multi-Agent System** modeled on the workflows of a human software development team:    
 
 **1. Architect**
 
