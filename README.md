@@ -11,11 +11,16 @@ Replicator aims to reduce the marginal cost of software development to near zero
 ## Core Architecture
 Replicator is a **Multi-Agent System** modeled after the workflows of a human software development team:    
 
-1. Architect
+**1. Architect**
+
 Input: Requirements | Output: AppSpec
-2. Engineer
+
+**2. Engineer**
+
 Input: AppSpec | Output: Source Code
-3. Operator
+
+**3. Operator**
+
 Input: Source Code | Output: URL
 
 ## Quick Start
