@@ -8,7 +8,7 @@ Replicator 致力于将软件开发的边际成本降至近乎为零，让创造
 
 ## 核心架构
 
-Replicator 采用可扩展的 Multi-Agent 架构，模拟软件开发团队的工作流：
+Replicator 是一个模拟人类软件开发团队的 Multi-Agent 系统：
 
 1. **Architect (架构)**
    - **输入**：简要描述需求与idea
