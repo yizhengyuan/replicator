@@ -30,7 +30,7 @@ Turn your prompt into a live app with a single command:
 
 ```bash
 # Generate source code only
-python -m replicator.main "Create a mortgage calculator with amortization schedule"
+python -m replicator.main "Create a minimalist To-Do list app"
 
 # Generate & Deploy to IPFS
 python -m replicator.main "Create a Cyberpunk style Pomodoro timer" --deploy
