@@ -7,7 +7,7 @@
 ## Core Architecture
 Replicator is a **Multi-Agent System** modeled on the workflows of a human software development team:    
 
-<img width="1291" height="312" alt="截屏2025-11-20 03 42 41" src="https://github.com/user-attachments/assets/da292b4d-3f11-4aea-ac0f-978a30553456" />
+<img width="1386" height="625" alt="Replicator 架构图" src="https://github.com/user-attachments/assets/d5d8fdf5-16ad-4b9c-87be-077f0623e2df" />
 
 ## Quick Start
 
