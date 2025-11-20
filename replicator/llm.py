@@ -5,6 +5,7 @@ from openai import OpenAI
 import anthropic
 from typing import Type, TypeVar, Optional, Literal
 from pydantic import BaseModel
+import re
 
 T = TypeVar("T", bound=BaseModel)
 
@@ -43,6 +44,62 @@ class LLMClient:
         else:
             raise ValueError(f"Unsupported provider: {provider}")
 
+    def _clean_json_text(self, text: str) -> str:
+        """Cleans up markdown fencing and extra whitespace."""
+        text = text.strip()
+        if text.startswith("```json"):
+            text = text[7:]
+        elif text.startswith("```"):
+            text = text[3:]
+        if text.endswith("```"):
+            text = text[:-3]
+        return text.strip()
+
+    def _extract_valid_json(self, text: str) -> Optional[str]:
+        """
+        Attempts to extract the actual JSON object from a potentially noisy string.
+        """
+        text = self._clean_json_text(text)
+        
+        # Strategy 1: Direct parse
+        try:
+            # Quick check: if it looks like a schema definition (has "$defs" or "type": "object" at root), reject it
+            parsed = json.loads(text)
+            if isinstance(parsed, dict) and ("$defs" in parsed or ("type" in parsed and parsed.get("type") == "object")):
+                 # This is likely just the schema echoed back
+                 pass
+            else:
+                return text
+        except json.JSONDecodeError:
+            pass
+
+        # Strategy 2: Handle concatenated JSONs (e.g. "{schema}{data}")
+        if "}{" in text:
+            parts = text.split("}{")
+            last_part = "{" + parts[-1]
+            try:
+                json.loads(last_part)
+                return last_part
+            except json.JSONDecodeError:
+                pass
+
+        # Strategy 3: Regex search for the last outermost curly braces
+        matches = list(re.finditer(r'\{.*\}', text, re.DOTALL))
+        if matches:
+            # Reverse iterate to find the last valid JSON that is NOT a schema
+            for match in reversed(matches):
+                candidate = match.group()
+                try:
+                    parsed = json.loads(candidate)
+                    # Check if it's the schema again
+                    if isinstance(parsed, dict) and ("$defs" in parsed or ("type" in parsed and parsed.get("type") == "object")):
+                        continue # Skip schema
+                    return candidate
+                except json.JSONDecodeError:
+                    continue
+                
+        return None
+
     def generate_json(self, prompt: str, schema: Type[T]) -> T:
         """Generates a JSON response matching the Pydantic schema."""
         
@@ -50,8 +107,15 @@ class LLMClient:
         full_prompt = f"""
         {prompt}
         
-        You must respond with a valid JSON object matching this schema:
+        You must respond with a valid JSON object that adheres to the following JSON Schema.
+        
+        JSON Schema:
         {schema.model_json_schema()}
+        
+        INSTRUCTIONS:
+        1. Do NOT return the Schema itself.
+        2. Return an actual INSTANCE of the data matching the Schema.
+        3. Return ONLY the raw JSON string. No markdown.
         
         Response:
         """
@@ -60,6 +124,7 @@ class LLMClient:
             if not self.api_key:
                  raise ValueError("API Key is required for generation.")
             
+            print("  (LLM: Waiting for Google Gemini...)")
             response = self.model.generate_content(
                 full_prompt,
                 generation_config={"response_mime_type": "application/json"}
@@ -70,23 +135,27 @@ class LLMClient:
             if not self.api_key:
                  raise ValueError("API Key is required for generation.")
             
-            response = self.client.chat.completions.create(
-                model=self.model_name,
-                messages=[
-                    {"role": "system", "content": "You are a helpful assistant that outputs JSON."},
+            print(f"  (LLM: Waiting for OpenAI/{self.model_name}...)")
+            
+            kwargs = {
+                "model": self.model_name,
+                "messages": [
+                    {"role": "system", "content": "You are a helpful assistant. You output DATA in JSON format, not Schemas. Do not use markdown."},
                     {"role": "user", "content": full_prompt}
-                ],
-                response_format={"type": "json_object"}
-            )
+                ]
+            }
+            
+            if "gpt-" in self.model_name or "json" in self.model_name:
+                 kwargs["response_format"] = {"type": "json_object"}
+
+            response = self.client.chat.completions.create(**kwargs)
             response_text = response.choices[0].message.content
 
         elif self.provider == "anthropic":
             if not self.api_key:
                 raise ValueError("API Key is required for generation.")
             
-            # Anthropic doesn't have a forced JSON mode like OpenAI/Gemini yet (or handled differently),
-            # but Claude is very good at following instructions.
-            # We prefill the response with '{' to encourage JSON output.
+            print(f"  (LLM: Waiting for Anthropic/{self.model_name}...)")
             response = self.client.messages.create(
                 model=self.model_name,
                 max_tokens=4096,
@@ -95,11 +164,18 @@ class LLMClient:
                     {"role": "assistant", "content": "{"} 
                 ]
             )
-            # Re-attach the opening brace since we prefilled it
             response_text = "{" + response.content[0].text
+        
+        # Robust JSON extraction
+        cleaned_json = self._extract_valid_json(response_text)
+        
+        if not cleaned_json:
+             # If extraction failed, fall back to original text for debugging
+             # But first, check if original text looks like the schema, if so, fail explicitly
+             cleaned_json = response_text
 
         try:
-            return schema.model_validate_json(response_text)
+            return schema.model_validate_json(cleaned_json)
         except Exception as e:
-            print(f"Failed to parse JSON: {response_text}")
+            print(f"Failed to parse JSON. Raw response:\n{response_text}")
             raise e
